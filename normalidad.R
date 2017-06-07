@@ -10,3 +10,13 @@ muestras <- function(n = 20, num = 10000){
 ## Función que estudia el tamaño del test para el
 ## contraste de normalidad de Shapiro-Wilk
 ##===============================================================
+simul.shapiro <- function(datos, alfa = 0.05){
+  numsimul <- dim(datos)[1]
+  rechazos <- 0
+  for (i in 1:numsimul){
+    if (shapiro.test(datos[i, ])$p.value < alfa){
+      rechazos <- rechazos + 1
+    }
+  }
+  rechazos/numsimul
+}
