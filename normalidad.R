@@ -20,3 +20,25 @@ simul.shapiro <- function(datos, alfa = 0.05){
   }
   rechazos/numsimul
 }
+
+##======================================
+## Funcion que contabiliza el tiempo
+##======================================
+
+tiempo <- function(ntiemp){
+  tamano <- NULL
+  t <- NULL
+  alfaest <- NULL
+  for (i in 1:ntiemp){
+    tamano <- c(tamano, 10*i)
+    m <- muestras(n = 10*i)
+    inicio <- Sys.time()
+    est <- simul.shapiro(m)
+    final <- Sys.time()
+    t <- c(t, final - inicio)
+    alfaest <- c(alfaest, est)
+  }
+  data.frame(tam.muestral = tamano, tiempo.comp = t, alfa.estimado = alfaest)
+}
+
+prueba <- tiempo(20)
